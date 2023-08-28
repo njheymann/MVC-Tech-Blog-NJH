@@ -1,0 +1,14 @@
+<div class="posts">
+  <h2>Posts</h2>
+  <ul>
+    {{#each posts}}
+      <li>
+        <div class="list-header">
+          <h3>{{title}}</h3>
+          <h4>Posted by: {{user.username}}</h4>
+        </div>
+        <p>{{content}}</p>
+      </li>
+    {{/each}}
+  </ul>
+</div>
