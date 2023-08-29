@@ -6,12 +6,12 @@
   },
   {
     "user_id": 2,
-    "post_id": 1,
+    "post_id": 2,
     "comment_text": "Another comment on the first post."
   },
   {
     "user_id": 3,
-    "post_id": 2,
+    "post_id": 3,
     "comment_text": "Comment on the second post."
   }
 ]

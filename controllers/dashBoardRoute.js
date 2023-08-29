@@ -1,22 +1,25 @@
-// main page router
-
 const express = require("express");
 const router = express.Router();
-const { Post, User } = require("../models");
+const { User, Comment, Post } = require("../models");
 
-router.get("/dashboard", async (req, res) => {
-  console.log("dashboard route");
+const isAuthenticated = (req, res, next) => {
+  if (req.session.logged_in) {
+    return next();
+  }
+  res.redirect("/login");
+};
+
+router.get("/", isAuthenticated, async (req, res) => {
   try {
-    const postData = await Post.findAll({
-      include: [{ model: User }],
+    const userId = req.session.user_id;
+    const user = await User.findByPk(userId);
+    const posts = await Post.findAll({
+      where: {
+        user_id: userId,
+      },
     });
-
-    console.log(postData);
-
-    const posts = postData.map((post) => post.get({ plain: true }));
-    res.render("dashboard", { posts });
+    res.render("dashboard", { user, posts });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });

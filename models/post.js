@@ -6,7 +6,7 @@ const sequelize = require("../config/connection");
 class Post extends Model {}
 
 Post.init(
- {
+  {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -23,13 +23,13 @@ Post.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    },
-    {
-      sequelize,
-      freezeTableName: true,
-      underscored: true,
-      modelName: "post",
-    }
-    );
+  },
+  {
+    sequelize,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "post",
+  }
+);
 
 module.exports = Post;
