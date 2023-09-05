@@ -54,6 +54,63 @@ ul {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+.your-posts li {
+  list-style: none;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.your-posts p {
+  padding: 10px;
+}
+
+.your-posts button {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+  height: 30px;
+  background-color: #d00909;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#created-post {
+  margin-left: 47px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  justify-content: center;
+  width: 400px;
+  height: 200px;
+
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#created-post button {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+  height: 30px;
+  background-color: #d00909;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 .list-header h3 {
   display: inline-block;
   margin: 0;

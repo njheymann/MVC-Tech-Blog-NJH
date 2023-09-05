@@ -45,5 +45,7 @@ sequelize
     force: false,
   })
   .then(() => {
-    app.listen(PORT, () => console.log("Now listening"));
+    app.listen(PORT, () =>
+      console.log("Now listening on http://localhost:3030/home")
+    );
   });

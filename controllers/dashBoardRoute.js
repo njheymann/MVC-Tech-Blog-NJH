@@ -12,15 +12,50 @@ const isAuthenticated = (req, res, next) => {
 router.get("/", isAuthenticated, async (req, res) => {
   try {
     const userId = req.session.user_id;
-    const user = await User.findByPk(userId);
-    const posts = await Post.findAll({
-      where: {
-        user_id: userId,
-      },
+    const user = await User.findByPk(userId, {
+      attributes: ["username"],
+      include: [{ model: Post }],
     });
-    res.render("dashboard", { user, posts });
+
+    console.log(user);
+
+    res.render("dashboard", { user: user.get({ plain: true }) });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const postData = await Post.create({
+      title: req.body.title,
+      content: req.body.content,
+      user_id: req.session.user_id,
+    });
+
+    res.status(200).json(postData);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  try {
+    const postData = await Post.update({
+      
+      content: req.body.content,
+    },
+    {
+      where: {
+        id: req.params.id,
+      },
+    }
+    );
+
+    console.log(postData);
+    res.status(200).json(postData);
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 

@@ -1,21 +1,28 @@
-// dashboard that shows logged in users posts  and allows to make a new post or edit posts
 
- <div class="header">
+ <div class="list-header">
     <h1>Welcome to Your Dashboard, {{user.username}}!</h1>
   </div>
   <div class="content">
     <h2>Your Posts:</h2>
-    <ul class="post-list">
-      {{#each posts}}
+    {{#each user.posts}}
+    <ul class="your-posts">
+      
         <li>
-          <h3>{{title}}</h3>
-          <p>{{content}}</p>
-          <a href="/edit/{{id}}">Edit</a> <!-- Link to edit post -->
+            <div class="list-header">
+              <h3 id="post-title" data-post-id="{{this.id}}">{{this.title}}</h3>
+            </div>
+            <textarea id="post-content" style="height: 160px;padding: 10px">{{this.content}}</textarea>
+            
+             
         </li>
-      {{/each}}
+          
+            <button id="delete-post">Delete</button>
+            <button id="save-button">Save changes</button>
+      
     </ul>
+   {{/each}}
     <h2>Create a New Post:</h2>
-    <form action="/create" method="post">
+    <form id="created-post">
       <div class="form-group">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required>
@@ -28,3 +35,5 @@
     </form>
   </div>
 </body>
+
+<script src="/js/makePost.js"></script>
