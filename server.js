@@ -12,7 +12,7 @@ const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const app = express();
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3001;
 
 const hbs = exphbs.create({ helpers });
 
@@ -47,6 +47,6 @@ sequelize
   })
   .then(() => {
     app.listen(PORT, () =>
-      console.log("Now listening on http://localhost:3030/home")
+      console.log(`Now listening on http://localhost:${PORT}`)
     );
   });
