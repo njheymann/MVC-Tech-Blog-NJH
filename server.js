@@ -1,4 +1,5 @@
 // Express.js server setup
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const session = require("express-session");
@@ -8,7 +9,6 @@ const routes = require("./controllers");
 const helpers = require("./utils/auth.js");
 
 const sequelize = require("./config/connection");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3030;
@@ -19,10 +19,12 @@ const sess = {
   secret: "Super secret secret",
   cookie: {},
   resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize,
-  }),
+  saveUninitialized: false,
+  cookie: {
+    secure: "auto",
+    httpOnly: true,
+    maxAge: 72 * 60 * 60 * 1000, // 72 hours in milliseconds
+  },
 };
 
 app.use(session(sess));
