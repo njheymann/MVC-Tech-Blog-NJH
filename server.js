@@ -1,52 +1,70 @@
-// Express.js server setup
 require("dotenv").config();
+
 const path = require("path");
 const express = require("express");
-const session = require("express-session");
+
+const session = require("express-session"); // import express-session
 const exphbs = require("express-handlebars");
+const sequelize = require("./config/connection");
 const routes = require("./controllers");
 
-const helpers = require("./utils/auth.js");
-
-const sequelize = require("./config/connection");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
-
 const app = express();
-const PORT = process.env.PORT || 3030;
 
-const hbs = exphbs.create({ helpers });
+const PORT = process.env.PORT || 3001;
 
-const sess = {
-  secret: "Super secret secret",
-  cookie: {},
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize,
-  }),
-};
+const hbs = exphbs.create({
+  helpers: {
+    compare: function (variableOne, comparator, variableTwo) {
+      if (eval(variableOne + comparator + variableTwo)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    formatDate: function (date) {
+      // Format the date to format "DD-MM-YYYY"
+      const dateData = date.toISOString().split("T")[0].split("-");
+      return dateData[2] + "/" + dateData[1] + "/" + dateData[0];
+    },
+  },
+}).engine;
 
-app.use(session(sess));
-
-app.engine("handlebars", hbs.engine);
+app.engine("handlebars", hbs);
 app.set("view engine", "handlebars");
 
-app.use(express.json());
+// Use express-session middleware
 app.use(
-  express.urlencoded({
-    extended: true,
+  session({
+    secret: "your_secret_key", // this secret will be used for signing the session ID cookie. Change it to your own secret string.
+    resave: false, // force the session to be saved back to the session store
+    saveUninitialized: false, // save uninitialized session to the store
+    cookie: {
+      secure: "auto",
+      httpOnly: true,
+      maxAge: 72 * 60 * 60 * 1000, // 72 hours in milliseconds
+    }, // automatically set the cookie as secure if the request is secure
   })
 );
-app.use(express.static(path.join(__dirname, "public")));
 
+// middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(routes);
 
+// Error-handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
+
 sequelize
-  .sync({
-    force: false,
-  })
+  .sync({ force: false })
   .then(() => {
-    app.listen(PORT, () =>
-      console.log("Now listening on http://localhost:3030/home")
-    );
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Unable to connect to the database:", error);
   });
