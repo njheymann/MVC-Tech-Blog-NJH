@@ -1,6 +1,7 @@
 const User = require("./user");
 const Post = require("./post");
 const Comment = require("./comment");
+const bycrypt = require("bcryptjs");
 
 // create associations
 User.hasMany(Post, {
