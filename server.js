@@ -19,7 +19,12 @@ const sess = {
   secret: "Super secret secret",
   cookie: {},
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
+  cookie: {
+    secure: "auto",
+    httpOnly: true,
+    maxAge: 72 * 60 * 60 * 1000, // 72 hours in milliseconds
+  },
 };
 
 app.use(session(sess));
