@@ -9,7 +9,7 @@ const logout = require("./logout.js");
 
 router.use("/login", userRoutes);
 router.use("/signup", signupRoutes);
-router.use("/home", homeRoutes);
+router.use("/", homeRoutes);
 router.use("/dashboard", dashboardRoutes);
 router.use("/logout", logout);
 
