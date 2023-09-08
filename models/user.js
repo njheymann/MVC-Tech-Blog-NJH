@@ -1,7 +1,6 @@
 // User model
 const { Model, DataTypes } = require("sequelize");
 
-
 const sequelize = require("../config/connection");
 
 // Create our User model
