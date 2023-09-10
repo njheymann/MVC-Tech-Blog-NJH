@@ -24,6 +24,11 @@
       >{{post.content}}</p>
 
     </li>
+    <ul class="comments-list">
+      {{#each post.comments as |comment|}}
+        <li>{{comment.comment_text}} - {{comment.user.username}}</li>
+      {{/each}}
+    </ul>
 
   {{/each}}
 

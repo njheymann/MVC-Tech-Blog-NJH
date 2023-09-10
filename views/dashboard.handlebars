@@ -16,8 +16,8 @@
              
         </li>
           
-            <button id="delete-post">Delete</button>
-            <button id="save-button">Save changes</button>
+            <button id="delete-post" data-post-id="{{this.id}}">Delete</button>
+            <button id="save-button" data-post-id="{{this.id}}">Save changes</button>
       
     </ul>
    {{/each}}
@@ -37,3 +37,4 @@
 </body>
 
 <script src="/js/makePost.js"></script>
+<script src="/js/deletePost.js"></script>
