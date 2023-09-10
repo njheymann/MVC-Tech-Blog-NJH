@@ -26,11 +26,10 @@ router.get("/", async (req, res) => {
       attributes: ["id", "comment_text", "user_id", "post_id"],
     });
 
-    const commentsData = comments.map((comment) =>
-      comment.get({ plain: true })
-    );
-
-    const posts = postData.map((post) => post.get({ plain: true }));
+    const posts = {
+      posts: postData.map((post) => post.get({ plain: true })),
+      comments: comments.map((comment) => comment.get({ plain: true })),
+    };
 
     const userId = req.session.user_id;
     const user = await User.findByPk(userId, {
@@ -38,15 +37,13 @@ router.get("/", async (req, res) => {
       include: [{ model: Post }],
     });
 
-    console.log("comments", commentsData);
     console.log("posts", posts);
     console.log("user", user);
 
-    res.render("homepage", { posts, commentsData, user });
+    res.render("homepage", { posts, user });
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
 
 module.exports = router;
