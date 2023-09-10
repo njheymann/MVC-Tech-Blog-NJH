@@ -54,6 +54,6 @@ LOGGED OUT AND RETURNED TO LOGIN SCREEN
 
 ## Links
 
-Deployed Heroku URL: https://mvc-tech-blog-njh-0c016b94d1c6.herokuapp.com/
+Deployed Heroku URL: https://mvc-tech-blog-njh-0c016b94d1c6.herokuapp.com/  
 Github Repo URL: https://github.com/njheymann/MVC-Tech-Blog-NJH
 
