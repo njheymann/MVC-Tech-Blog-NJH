@@ -1,17 +1,20 @@
 [
   {
-    "user_id": 3,
-    "post_id": 1,
-    "comment_text": "I agree JavaScript is challenging!."
-  },
-  {
+    "id": 3,
     "user_id": 1,
-    "post_id": 2,
-    "comment_text": "MySQL is satisfying!"
+    "post_id": 1,
+    "comment_text": "I like it!"
   },
   {
+    "id": 1,
     "user_id": 2,
+    "post_id": 2,
+    "comment_text": "It could be better"
+  },
+  {
+    "id": 2,
+    "user_id": 3,
     "post_id": 3,
-    "comment_text": "Im not a fan of Heroku either!"
+    "comment_text": "I agree with you"
   }
 ]

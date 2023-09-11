@@ -1,39 +1,36 @@
-const submitComment = async () => {
-  const textarea = document.querySelector(".comment-textarea");
-  const commentText = textarea.value.trim();
-  const postId = document.querySelector(".comments-section").dataset.postId;
 
-  if (commentText) {
-    try {
-      // Send a POST request to the server to create a new comment
-      const response = await fetch(`/`, {
+const commentForms = document.querySelectorAll(".add-comment-form");
+
+
+commentForms.forEach((form) => {
+  const addButton = form.querySelector("#add-comment"); 
+
+  addButton.addEventListener("click", async (e) => {
+    e.preventDefault();
+    console.log("You clicked!");
+
+    
+    const commentInput = form.querySelector("#comment"); 
+    const postInput = form.querySelector("#post-id"); 
+
+    const comment_text = commentInput.value.trim();
+    const post_id = postInput.value.trim();
+
+    console.log("Post id:", post_id);
+    console.log("Comment text:", comment_text);
+
+    if (comment_text && post_id) {
+      const response = await fetch("/", {
         method: "POST",
+        body: JSON.stringify({ comment_text, post_id }),
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ comment_text: commentText, post_id: postId }),
       });
 
       if (response.ok) {
-        // Comment was successfully created on the server
-        const commentData = await response.json();
-
-        // Update the DOM to display the new comment
-        const commentsList = document.querySelector(".comments-list");
-        const newCommentElement = document.createElement("li");
-        newCommentElement.textContent = `${commentText} - ${commentData.user.username}`;
-        commentsList.appendChild(newCommentElement);
-
-        // Clear the textarea
-        textarea.value = "";
+        document.location.reload();
       } else {
-        alert("Failed to create comment");
+        alert(response.statusText);
       }
-    } catch (error) {
-      console.error("Error creating comment:", error);
     }
-  }
-};
-
-// Event listener for the comment submit button
-document
-  .querySelector(".comment-submit")
-  .addEventListener("click", submitComment);
+  });
+});

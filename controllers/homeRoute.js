@@ -12,24 +12,20 @@ router.get("/", async (req, res) => {
           model: User,
           attributes: ["username"],
         },
+        {
+          model: Comment,
+          attributes: ["comment_text", "user_id", "post_id", "id"],
+          include: {
+            model: User,
+            attributes: ["username"],
+          },
+        },
       ],
       attributes: ["title", "content", "user_id"],
     });
 
-    const comments = await Comment.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ["username"],
-        },
-      ],
-      attributes: ["id", "comment_text", "user_id", "post_id"],
-    });
-
-    const posts = {
-      posts: postData.map((post) => post.get({ plain: true })),
-      comments: comments.map((comment) => comment.get({ plain: true })),
-    };
+    console.log(postData);
+    const posts = postData.map((post) => post.get({ plain: true }));
 
     const userId = req.session.user_id;
     const user = await User.findByPk(userId, {
@@ -43,6 +39,20 @@ router.get("/", async (req, res) => {
     res.render("homepage", { posts, user });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const commentData = await Comment.create({
+      comment_text: req.body.comment_text,
+      user_id: req.session.user_id,
+      post_id: req.body.post_id,
+    });
+    console.log(commentData);
+    res.status(200).json(commentData);
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
