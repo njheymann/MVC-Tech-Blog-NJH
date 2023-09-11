@@ -46,7 +46,8 @@ SAVE POST
 ![Screenshot 2023-09-10 170536](https://github.com/njheymann/MVC-Tech-Blog-NJH/assets/125000756/389178f9-db1c-4c92-919f-9298f5f077cf)
 
 HOMEPAGE  
-![Screenshot 2023-09-11 095447](https://github.com/njheymann/MVC-Tech-Blog-NJH/assets/125000756/a84b0d17-026e-4bdd-beca-3a8aeceb8403)
+![Screenshot 2023-09-11 225423](https://github.com/njheymann/MVC-Tech-Blog-NJH/assets/125000756/593fe3d7-2b5a-4140-b89e-7b75d1fd32d6)
+
 
 
 LOGGED OUT AND RETURNED TO LOGIN SCREEN  
